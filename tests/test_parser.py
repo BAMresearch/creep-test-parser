@@ -16,5 +16,7 @@ class TestCreepTestParser:
         assert len(collection.attached_objects) == 1
         assert len(collection.relationships) == 0
         objects = list(collection.attached_objects.values())
-        assert objects[0].name == "Project Name"
-        assert objects[0].name != "Some Other Name"
+        assert objects[0].name == "CreepTest"
+        assert objects[0].creep_test_id == "Ab1234"
+        assert objects[0].start_date == "2022-05-01 02:00:00"
+        assert objects[0].end_date == "2022-05-02 02:00:00"
