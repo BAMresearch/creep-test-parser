@@ -8,15 +8,16 @@ classifiers = [
   "Intended Audience :: Science/Research",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
 ]
 name = "creep-test-parser"
 description = "An openBIS parser for creep testing data in BAM."
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
   { name = "Markus Schilling"},
   { name = "BAM Data Store", email = "datastore@bam.de" },
@@ -27,7 +28,7 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-  "bam-masterdata>=0.6.2",
+  "bam-masterdata>=0.15.0",
 ]
 
 [project.urls]
@@ -36,7 +37,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "mypy==1.0.1",
   "ruff",
   "pytest",
   "pytest-timeout",
@@ -111,13 +111,6 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
-
-[tool.mypy]
-strict = false
-ignore_missing_imports = true
-follow_imports = "silent"
-no_strict_optional = true
-disable_error_code = "import, annotation-unchecked"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

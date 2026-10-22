@@ -1,16 +1,18 @@
-from decouple import config as environ
+import getpass
+
+from bam_masterdata.cli.run_parser import RunParsers
+from bam_masterdata.logger import logger
 from pybis import Openbis
 
-# Connect to openBIS
-# Take the file `.env.example` in this repo, and rename it as `.env`. Change the
-# variables there for your own parameters
-openbis = Openbis(environ("OPENBIS_URL"))
-openbis.login(environ("OPENBIS_USERNAME"), environ("OPENBIS_PASSWORD"), save_token=True)
-
-
-from bam_masterdata.cli.run_parser import run_parser
-
 from creep_test_parser.parser import CreepTestParser
+
+URL = "https://your-openbis-instance.com"  # openBIS URL
+print(f"Connecting to openBIS instance at {URL}...")
+openbis = Openbis(URL)
+username = input("Username: ")
+password = getpass.getpass("Password: ")
+openbis.login(username, password, save_token=True)
+
 
 # Define which parser to use and which files to parse
 files_parser = {
@@ -20,11 +22,16 @@ files_parser = {
 }
 
 # Run the parser
-run_parser(
+parsing = RunParsers(
     openbis=openbis,
-    space_name="<SPECIFY_YOUR_SPACE>",
-    project_name="CREEPTEST_PROJECT",  # define your Project name
-    collection_name="CREEPTEST_TEST_COLLECTION",  # optional, define your Collection name
+    space_name="<SPACE-NAME>",
+    project_name="<PROJECT-NAME>",
+    collection_name="<COLLECTION-NAME>",  # optional
     files_parser=files_parser,
+    logger=logger,
 )
-print("Parsing completed.")
+
+
+print("Starting parsing...")
+parsing.run()
+print("Done!")
